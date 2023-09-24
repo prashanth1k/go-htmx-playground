@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unpkg.com/chota@latest" />
+  <link rel="stylesheet" href="/static/css/main.css" />
+  <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+  <title>Booksie</title>
+</head>
+
+<body>
+  <nav class="nav">
+    <div class="nav-center">
+      <a class="brand" href="#">Booksie</a>
+      <div class="tabs">
+        <a class="active">Home</a>
+        <a href="/help">Help</a>
+      </div>
+    </div>
+  </nav>
+  <main class="container">
+    <h2>My Books</h2>
+
+    <div class="row">
+      <div class="col-12 card bg-light">
+        <form hx-post="book-add" hx-target="#books-list" hx-swap="beforeend"
+          hx-on::after-request=" if(event.detail.successful) this.reset()">
+          <div class="row">
+            <div class="col-12 col-6-md ">
+              <label for="title-id">Title</label>
+              <input type="text" name="title" id="title-id" />
+            </div>
+
+            <div class="col-12 col-6-md ">
+              <label for="author-id">Author</label>
+              <input type="text" name="author" id="author-id" />
+            </div>
+            <div class="col-12 is-right">
+              <button type="submit" class="button primary">Add</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-12">
+        <div class="row" id="books-list">
+          {{ range .Books}}
+          {{ block "book-item" . }}
+          <div class="col-12 col-6-md card">
+            <div class="row">
+
+              <div class="col-12">
+                <h4>{{ .Title }} </h4>
+              </div>
+
+              <div class="col-12 col-6-md">
+                🖋️ {{ .Author }} <br>
+
+
+              </div>
+            </div>
+          </div>
+          {{ end }}
+          {{ end }}
+        </div>
+      </div>
+
+    </div>
+  </main>
+</body>
+
+</html>

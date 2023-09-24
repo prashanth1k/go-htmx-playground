@@ -1,0 +1,8 @@
+{
+  "verbose": true,
+  "execMap": {
+    "go": "go",
+    "html": "html"
+  },
+  "ignore": ["node_modules/*"]
+}
